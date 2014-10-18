@@ -1,0 +1,66 @@
+#!/usr/bin/python
+"""
+Random passphrase generator based on the diceware wordlist
+(http://world.std.com/~reinhold/diceware.html).
+
+"Picking a good passphrase is one of the most important
+things you can do to preserve the privacy of your computer
+data and e-mail messages. A passphrase should be:
+
+ * Known only to you
+ * Long enough to be secure
+ * Hard to guess -- even by someone who knows you well
+ * Easy for you to remember
+ * Easy for you to type accurately"
+"""
+import random
+import sys
+import getopt
+
+def version():
+    print("passgen version: 0.0.1")
+
+def usage():
+    print("Usage: passgen [options]\n")
+    print("Options:")
+    print("-w NUM, --word=NUM       number of words to generate")
+    print("-l LIST, --list=LIST     name of wordlist to use (see 'man passgen')")
+    print("-h, --help               show this help message and exit")
+    print("-v, --version            show version information")
+
+def main(argv):
+    words = 5
+    wordlist = "diceware"
+    try:
+        opts, args = getopt.getopt(argv, "hw:l:v", ["help", "words=", "list=", "version"])
+    except getopt.GetoptError:
+        usage()
+        sys.exit(2)
+    for opt, arg in opts:
+        if opt in ("-w", "--words"):
+            words = int(arg)
+        elif opt in ("-l", "--list"):
+            wordlist = arg
+        elif opt in ("-v", "--version"):
+            version()
+            sys.exit()
+        elif opt in ("-h", "--help"):
+            usage()
+            sys.exit()
+
+    lines = load_list(wordlist)
+    passphrase = generate(lines, words)
+    show(passphrase)
+
+def load_list(wordlist):
+    wordlist = "/home/xerage/.local/share/passgen/" + wordlist + ".wordlist.asc"
+    return [line[6:].strip() for line in open(wordlist)]
+
+def generate(lines, words):
+    return [ lines[random.randint(1,7776)] for _ in range(words) ]
+
+def show(passphrase):
+    print("  ".join(passphrase))
+
+if __name__ == "__main__":
+    main(sys.argv[1:])

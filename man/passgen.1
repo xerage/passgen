@@ -1,0 +1,40 @@
+.TH passgen 1 "18 Oct 2014" "version 0.1"
+.SH NAME
+passgen
+.SH SYNOPSIS
+passgen ['OPTION' ...]
+.SH DESCRIPTION
+Random passphrase generator based on the diceware wordlist
+(http://world.std.com/~reinhold/diceware.html).
+.PP
+"Picking a good passphrase is one of the most important
+things you can do to preserve the privacy of your computer
+data and e-mail messages. A passphrase should be:
+.PP
+ * Known only to you
+ * Long enough to be secure
+ * Hard to guess - even by someone who knows you well
+ * Easy for you to remember
+ * Easy for you to type accurately"
+.PP
+OPTION can be:
+    -w NUM, --word=NUM::
+        number of words to generate (default is 5)
+    -l LIST, --list=LIST::
+        name of wordlist to use, currently  can be one of:
+        diceware, beale, japanese
+        (default is diceware)
+    -h, --help::
+        show usage information
+    -v, --version::
+        print version and exit
+.SH EXAMPLES
+Generate a passphrase of 7 words (overly secure):
+    passgen -w 7
+.PP
+Generate a passphrase with 5 japanese words
+    passgen -l japanese
+.SH BUGS
+No known bugs.
+.SH AUTHOR
+Gergely Szarka <xerage@siregion.com>
