@@ -14,7 +14,7 @@ data and e-mail messages. A passphrase should be:
  * Easy for you to type accurately"
 """
 import random
-import sys
+import sys, os
 import getopt
 
 def version():
@@ -53,7 +53,7 @@ def main(argv):
     show(passphrase)
 
 def load_list(wordlist):
-    wordlist = "/home/xerage/.local/share/passgen/" + wordlist + ".wordlist.asc"
+    wordlist = os.environ['HOME'] + "/.local/share/passgen/" + wordlist + ".wordlist.asc"
     return [line[6:].strip() for line in open(wordlist)]
 
 def generate(lines, words):
